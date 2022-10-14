@@ -9,7 +9,7 @@ function Navbar({title}) {
     <nav className ='navbar mb-12 shadow-lg bg-neutral text-neutral-content'>
         <div className="container mx-atuo">
             <div className="flex-none px-2 mx-2">
-                <FaGithub className="inline pr-2 text-4xl"/>
+                <Link to="/"><FaGithub className="inline pr-2 text-4xl"/></Link>
                 <Link to="/" className="text-lg font-bold align-middle">
                     {title}
                 </Link>

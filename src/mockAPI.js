@@ -7,7 +7,7 @@ const pageData = [
         "hero_image": "https://mhfncbvxbvx.com.imaje.jpg"
     },
     {
-        "title": "About",
+        "title": "Github Finder",
         "slug": "about",
         "page_template": "default",
         "content": "This is my about content"

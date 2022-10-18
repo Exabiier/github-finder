@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../../layout/Navbar/index-Navbar'
 import Footer from '../../layout/Footer/index-footer'
+import UserResults from './ComponentsForHome/Search/UserResults'
 
 function HomePage(props) {
   return (
@@ -8,10 +9,11 @@ function HomePage(props) {
       <Navbar />
       <main className="container mx-auto px-3 pb-12">
         <h1 className="text-6xl">Welcome</h1>
-        <div>{props.pagedata.title}</div>
-        <p>THIS IS THE HOMEPAGE TEMPLATE</p>
+        {/* <div>{props.pagedata.title}</div> */}
+        <UserResults />
       </main>
       <Footer />
+      
     </>
   )
 }

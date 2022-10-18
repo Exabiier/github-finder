@@ -7,9 +7,9 @@ function DefaultPage(props) {
     <>
         <Navbar />
         <main className="container mx-auto px-3 pb-12">
+            <h1>{props.tabIndex}</h1>
             <div className="text-6xl mb-4">{props.pagedata.title}</div>
-            
-            <h1 className='text-6xl mb-4'></h1>
+
             <p className='mb-4 text-2xl font-light'>
               A React app to search GitHub profiles and see profile details. This
               project is part of the

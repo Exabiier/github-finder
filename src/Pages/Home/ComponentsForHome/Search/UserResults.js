@@ -1,14 +1,12 @@
 import React from 'react'
-import {useEffect, useState} from 'react'
+import {useEffect, useContext} from 'react'
 import Spinner from './spinner'
 import UserItem from './UserItem'
+import GithubContext from '../../../../Context/Context'
 
 function UserResults() {
 
-    // we seting the state for the loader and the user state as well
-
-    const [users, setUsers] = useState([])
-    const [loading, setloading] = useState(true)
+    const{users, loading, gitUsers} = useContext(GithubContext)
 
     // use affect is for changing the React state after the render has happened
 
@@ -16,27 +14,6 @@ function UserResults() {
     useEffect(()=>{
       gitUsers()  
     },[])
-
-
-    // this is our fethc for the API from Github.
-
-    const gitUsers = async () =>{
-        const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
-        headers:{
-            Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
-
-        }})
-
-        const data = await response.json();
-        console.log(data);
-
-
-        setUsers(data)
-        setloading(false)
-
-    }
-    // gitUsers();
-    console.log(gitUsers);
 
 
 

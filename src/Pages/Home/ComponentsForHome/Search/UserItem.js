@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 function UserItem(git) {
   return (
-    <div className="card shadow-mb compact side bg-base-100">
+    <div className="card shadow-md compact side bg-base-300">
       <div className="flex-row items-center space-x-4 card-body">
         <div>
           <div className="avatar">

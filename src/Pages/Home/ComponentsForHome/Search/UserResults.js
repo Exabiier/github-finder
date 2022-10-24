@@ -2,11 +2,11 @@ import React from 'react'
 import { useContext} from 'react'
 import Spinner from './spinner'
 import UserItem from './UserItem'
-import GithubContext from '../../../../Context/Context'
+import GithubContext from '../../../../Context/ContextAPI'
 
 function UserResults() {
 
-    const{users, loading, gitUsers} = useContext(GithubContext)
+    const{users, loading} = useContext(GithubContext)
     // use affect is for changing the React state after the render has happened
 
     // you dont have to use use Effect

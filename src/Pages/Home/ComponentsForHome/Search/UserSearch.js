@@ -1,15 +1,14 @@
 import React from 'react'
 import {useState, useContext} from 'react'
-import GithubContext from '../../../../Context/Context'
+import GithubContext from '../../../../Context/ContextAPI'
+
 
 function UserSearch() {
 // we are importing the github context in order to
-const{users} = useContext(GithubContext)
-console.log(users)
+const{users,searchUsers, setClear } = useContext(GithubContext)
 ///////////////////////////////////////////////////////
     // we create a usestate for our input 
 const [text, setText] = useState("");
-console.log(text)
 
 ///////////////////////////////////////////////////////
 const handleChange = (e) => setText(e.target.value)
@@ -21,10 +20,11 @@ const handleSubmit = (e) => {
         alert('Please enter something')
     } else{
         // todo search users
-
+        searchUsers(text)
         setText('');
     }
 }
+
 
 
   return (
@@ -45,10 +45,11 @@ const handleSubmit = (e) => {
                 </div>
             </form>  
         </div>
+        
         {/* We are using the string lenght on the user to make sure that the clear button only appears if a user is present.  */}
         {users.length > 0 && (
         <div>
-            <button className="btn btn-ghost btn-lg">Clear</button>
+            <button onClick={setClear} className="btn btn-ghost btn-lg">Clear</button>
         </div>
         )}
     </div>

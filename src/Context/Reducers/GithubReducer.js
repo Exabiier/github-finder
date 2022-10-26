@@ -7,6 +7,12 @@ const GithubReducers = (state, action)=>{
                 users: action.payload,
                 loading: false,
             }
+        case 'GET_USER':
+            return {
+                ...state,
+                user: action.payload,
+                loading: false,
+            }
 
             // We make a case just for lodaing so we can change the loading state of our APP
         case 'SET_LOADING':

@@ -15,24 +15,27 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
 
 export const GithubProvider = ({children}) =>{
 
-
+// We added a user as an empty object
     const initialState = {
         users: [],
+        user: {},
         loading: false
     }
 
     // dispatch is a fucntion it kind of acts as the setState with the useState hook. It dispatchs a action to our reducer
     const [state, dispatch] = useReducer(GithubReducers, initialState)
-    console.log(state)
-
+   
    
 
-
+    ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
      // we seting the state for the loader and the user state as well
     // const [users, setUsers] = useState([])
     // const [loading, setloading] = useState(true)
 
 
+    ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
  // this is our fethc for the API from Github. get Initial users(testing)
     // const gitUsers = async () =>{
     //     // the function is on the bottom and its a dispatch for our 
@@ -56,6 +59,9 @@ export const GithubProvider = ({children}) =>{
     //     })
 
     // }
+
+    ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
 
     const searchUsers = async (text) =>{
         // the function is on the bottom and its a dispatch for our 
@@ -94,9 +100,37 @@ export const GithubProvider = ({children}) =>{
         })
 
     }
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
+// single user
+const getUser = async (login) =>{
+    // the function is on the bottom and its a dispatch for our 
+    setLoading()
 
-    console.log(state.users)
+    const response = await fetch(`${GITHUB_URL}/users/${login}`, {
+    headers:{
+        Authorization: `token ${GITHUB_TOKEN}`
+
+    }})
+
+    // we are making an if statement just in case we get a 404 error
+    if(response.status === 404){
+        window.location = '/notfound'
+    } else {
+        const data = await response.json();
+
+        dispatch({
+            type: 'GET_USER',
+            payload: data,
+        })
+    }
+
+   
+}
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
     // set laoding
     const setLoading = () => dispatch({type: 'SET_LOADING'})
 
@@ -108,6 +142,7 @@ export const GithubProvider = ({children}) =>{
     return <GithubContext.Provider value={{
         // because the intial state already sets the keys we just reuse them here. and se use the state as the value pair of them. since the state is an object we must derive the right value from the folder path
         users: state.users,
+        user: state.user,
 
         loading: state.loading,
 
@@ -115,6 +150,7 @@ export const GithubProvider = ({children}) =>{
         // loading,
         searchUsers,
         setClear,
+        getUser,
     }}>
         {children}
     </GithubContext.Provider>

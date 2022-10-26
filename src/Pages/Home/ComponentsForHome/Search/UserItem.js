@@ -15,7 +15,7 @@ function UserItem(git) {
         </div>
         <div>
           <h2 className="card-title">{git.user.login}</h2>
-          <Link className='text-base-content text-opacity-40' to={`/users/${git.user.login}`}>Viist Profile</Link>
+          <Link className='text-base-content text-opacity-40' to={`/user/${git.user.login}`}>Viist Profile</Link>
         </div>
       </div>
       

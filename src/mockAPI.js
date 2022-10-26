@@ -11,7 +11,14 @@ const pageData = [
         "slug": "about",
         "page_template": "default",
         "content": "This is my about content"
+    },
+    {
+        "title": "GitHub User",
+        "slug": "users",
+        "page_template": "user",
+        "content": "This is my about content"
     }
+
 ];
 
 export default pageData;

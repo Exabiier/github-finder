@@ -1,4 +1,3 @@
-import {FaCodepen, FaStore, FaUserFriends, FaUsers} from 'react-icons/fa'
 import React from 'react'
 import {useContext} from 'react'
 import {Link} from 'react-router-dom'

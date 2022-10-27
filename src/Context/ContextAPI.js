@@ -19,6 +19,7 @@ export const GithubProvider = ({children}) =>{
     const initialState = {
         users: [],
         user: {},
+        repos: [],
         loading: false
     }
 
@@ -131,6 +132,27 @@ const getUser = async (login) =>{
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
+    const getUserRepos = async (login) =>{
+        // the function is on the bottom and its a dispatch for our 
+        setLoading()
+
+        const response = await fetch(`${GITHUB_URL}/users?${login}/repos`, {
+        headers:{
+            Authorization: `token ${GITHUB_TOKEN}`
+
+        }})
+   
+        const data = await response.json();
+       
+        dispatch({
+            type: 'GET_USERS_REPOS',
+            payload: data,
+        })
+
+    }
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
     // set laoding
     const setLoading = () => dispatch({type: 'SET_LOADING'})
 
@@ -143,6 +165,7 @@ const getUser = async (login) =>{
         // because the intial state already sets the keys we just reuse them here. and se use the state as the value pair of them. since the state is an object we must derive the right value from the folder path
         users: state.users,
         user: state.user,
+        repos: state.repos,
 
         loading: state.loading,
 
@@ -151,6 +174,7 @@ const getUser = async (login) =>{
         searchUsers,
         setClear,
         getUser,
+        getUserRepos,
     }}>
         {children}
     </GithubContext.Provider>

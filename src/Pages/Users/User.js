@@ -7,10 +7,11 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import GithubContext from '../../Context/ContextAPI'
 import Spinner from '../Home/ComponentsForHome/Search/spinner'
+import ReposList from './ReposList'
 
 
 function User() {
-    const{getUser, user, loading} = useContext(GithubContext);
+    const{getUser, getUserRepos, repos, user, loading} = useContext(GithubContext);
 
     // params is a property of the react router-dom
     const params = useParams()
@@ -18,6 +19,7 @@ function User() {
     useEffect(()=>{
         getUser(params.login)
         // getUserRepos(params.login)
+        getUserRepos(params.login)
     }, [])
 
 
@@ -126,7 +128,7 @@ function User() {
                     <div className="w-full py-5 mb-6 rounded-lg shadow-md bg-base-100 stats">
 
                 {/* ///////////////////////////////////////// */}  
-                                      
+
                         <div className="stat">
                             <div className="stat-figure text-secondary">
                                 <FaUsers className='text-3xl md:text-5xl' />
@@ -184,6 +186,7 @@ function User() {
                     
                 {/* ///////////////////////////////////////// */}
                     </div>
+                    <ReposList repos={repos}/>
                 </div>
             </main>
           <Footer />

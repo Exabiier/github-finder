@@ -3,6 +3,7 @@
 
 // now we are using Reducers
 import {createContext, useReducer } from 'react';
+import { createRenderer } from 'react-dom/test-utils';
 
 
 import GithubReducers from './Reducers/GithubReducer';
@@ -133,10 +134,14 @@ const getUser = async (login) =>{
 ////////////////////////////////////////////////////////////////////////
 
     const getUserRepos = async (login) =>{
-        // the function is on the bottom and its a dispatch for our 
         setLoading()
 
-        const response = await fetch(`${GITHUB_URL}/users?${login}/repos`, {
+        const params = new URLSearchParams({
+            sort: 'created',
+            per_page: 10
+        })
+
+        const response = await fetch(`${GITHUB_URL}/users?${login}/repos?${params}`, {
         headers:{
             Authorization: `token ${GITHUB_TOKEN}`
 

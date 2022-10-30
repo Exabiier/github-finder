@@ -10,8 +10,8 @@ import GithubReducers from './Reducers/GithubReducer';
 
 const GithubContext = createContext();
 
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
-const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
+// const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
+// const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
 
 
 export const GithubProvider = ({children}) =>{
@@ -65,121 +65,123 @@ export const GithubProvider = ({children}) =>{
     ///////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////
 
-    const searchUsers = async (text) =>{
-        // the function is on the bottom and its a dispatch for our 
-        setLoading()
+//     const searchUsers = async (text) =>{
+//         // the function is on the bottom and its a dispatch for our 
+//         setLoading()
 
-        // params
-        const params = new URLSearchParams({
-            q: text 
-        })
+//         // params
+//         const params = new URLSearchParams({
+//             q: text 
+//         })
 
 
 
-        const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
-        headers:{
-            Authorization: `token ${GITHUB_TOKEN}`
+//         const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
+//         headers:{
+//             Authorization: `token ${GITHUB_TOKEN}`
 
-        }})
+//         }})
 
-        // the old way of doing things
-        // const data = await response.json();
-        // console.log(data);
-//         we are deconstructig the object from the API call
-        const {items} = await response.json();
-        // console.log(data.items);
+//         // the old way of doing things
+//         // const data = await response.json();
+//         // console.log(data);
+// //         we are deconstructig the object from the API call
+//         const {items} = await response.json();
+//         // console.log(data.items);
 
-        // why cant i use data.items instead of using the de-constructor
-        // if the file path is not working for you there is always the deconstructor option for you to use for API data.
+//         // why cant i use data.items instead of using the de-constructor
+//         // if the file path is not working for you there is always the deconstructor option for you to use for API data.
 
-//  old way of useing state we now use reducers
-        // setUsers(data)
-        // setloading(false)
+// //  old way of useing state we now use reducers
+//         // setUsers(data)
+//         // setloading(false)
 
-        dispatch({
-            type: 'GET_USERS',
-            payload: items,
-        })
+//         dispatch({
+//             type: 'GET_USERS',
+//             payload: items,
+//         })
 
-    }
+//     }
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
 // single user
-const getUser = async (login) =>{
-    // the function is on the bottom and its a dispatch for our 
-    setLoading()
+// const getUser = async (login) =>{
+//     // the function is on the bottom and its a dispatch for our 
+//     setLoading()
 
-    const response = await fetch(`${GITHUB_URL}/users/${login}`, {
-    headers:{
-        Authorization: `token ${GITHUB_TOKEN}`
+//     const response = await fetch(`${GITHUB_URL}/users/${login}`, {
+//     headers:{
+//         Authorization: `token ${GITHUB_TOKEN}`
 
-    }})
+//     }})
 
-    // we are making an if statement just in case we get a 404 error
-    if(response.status === 404){
-        window.location = '/notfound'
-    } else {
-        const data = await response.json();
+//     // we are making an if statement just in case we get a 404 error
+//     if(response.status === 404){
+//         window.location = '/notfound'
+//     } else {
+//         const data = await response.json();
 
-        dispatch({
-            type: 'GET_USER',
-            payload: data,
-        })
-    }
+//         dispatch({
+//             type: 'GET_USER',
+//             payload: data,
+//         })
+//     }
 
    
-}
+// }
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
-    const getUserRepos = async (login) =>{
-        setLoading()
+    // const getUserRepos = async (login) =>{
+    //     setLoading()
 
-        const params = new URLSearchParams({
-            sort: 'created',
-            per_page: 10
-        })
+    //     const params = new URLSearchParams({
+    //         sort: 'created',
+    //         per_page: 10,
+    //         // page: 1
+    //     })
 
-        const response = await fetch(`${GITHUB_URL}/users?${login}/repos?${params}`, {
-        headers:{
-            Authorization: `token ${GITHUB_TOKEN}`
+    //     const response = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
+    //     headers:{
+    //         Authorization: `token ${GITHUB_TOKEN}`
 
-        }})
+    //     }})
    
-        const data = await response.json();
+    //     const data = await response.json();
        
-        dispatch({
-            type: 'GET_USERS_REPOS',
-            payload: data,
-        })
+    //     dispatch({
+    //         type: 'GET_USERS_REPOS',
+    //         payload: data,
+    //     })
 
-    }
+    // }
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
     // set laoding
-    const setLoading = () => dispatch({type: 'SET_LOADING'})
+    // const setLoading = () => dispatch({type: 'SET_LOADING'})
 
-    // Clear users from state
-    const setClear = () => dispatch({
-        type: 'SET_CLEAR'
-    })
+    // // Clear users from state
+    // const setClear = () => dispatch({
+    //     type: 'SET_CLEAR'
+    // })
 
     return <GithubContext.Provider value={{
         // because the intial state already sets the keys we just reuse them here. and se use the state as the value pair of them. since the state is an object we must derive the right value from the folder path
-        users: state.users,
-        user: state.user,
-        repos: state.repos,
+        // users: state.users,
+        // user: state.user,
+        // repos: state.repos,
+        // loading: state.loading,
 
-        loading: state.loading,
 
-        // users,
-        // loading,
-        searchUsers,
-        setClear,
-        getUser,
-        getUserRepos,
+        ...state,
+       dispatch,
+
+        // searchUsers,
+        // setClear,
+        // getUser,
+        // getUserRepos,
     }}>
         {children}
     </GithubContext.Provider>

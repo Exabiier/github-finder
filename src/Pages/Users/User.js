@@ -1,5 +1,5 @@
 import React from 'react'
-import {FaCodepen, FaStore, FaUserFriends, FaUsers} from 'react-icons/fa'
+import {FaCodepen, FaRProject, FaStore, FaUserFriends, FaUsers} from 'react-icons/fa'
 import Footer from '../../layout/Footer/index-footer'
 import Navbar from '../../layout/Navbar/index-Navbar'
 import {useEffect, useContext} from 'react'
@@ -8,19 +8,41 @@ import { useParams } from 'react-router-dom'
 import GithubContext from '../../Context/ContextAPI'
 import Spinner from '../Home/ComponentsForHome/Search/spinner'
 import ReposList from './ReposList'
+import{getUser, getUserRepos} from '../../Context/Action/GithubAction'
+
 
 
 function User() {
-    const{getUser, getUserRepos, repos, user, loading} = useContext(GithubContext);
+    // const{getUser, getUserRepos, repos, user, loading} = useContext(GithubContext);
+
+    const{ dispatch, repos, user, loading} = useContext(GithubContext);
 
     // params is a property of the react router-dom
     const params = useParams()
 
+    // before the action:
+    // useEffect(()=>{
+    //     getUser(params.login)
+    //     // getUserRepos(params.login)
+    //     getUserRepos(params.login)
+    // }, [])
+
+
+// We need a better way of organizing our dispatch when comes to our components
+
+
     useEffect(()=>{
-        getUser(params.login)
-        // getUserRepos(params.login)
-        getUserRepos(params.login)
-    }, [])
+            dispatch({type: 'SET_LOADING'});
+            const getUserData = async() => {
+                const userData = await getUser(params.login)
+                dispatch({type: 'GET_USER', payload: userData,})
+
+                const userRepoData = await getUserRepos(params.login)
+                dispatch({type: 'GET_USERS_REPOS', payload: userRepoData,})
+          }
+          getUserData()
+        }, [dispatch, params.login])
+    
 
 
     const {

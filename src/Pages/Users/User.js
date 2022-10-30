@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 import GithubContext from '../../Context/ContextAPI'
 import Spinner from '../Home/ComponentsForHome/Search/spinner'
 import ReposList from './ReposList'
-import{getUser, getUserRepos} from '../../Context/Action/GithubAction'
+import{getUserAndRepos} from '../../Context/Action/GithubAction'
 
 
 
@@ -34,11 +34,19 @@ function User() {
     useEffect(()=>{
             dispatch({type: 'SET_LOADING'});
             const getUserData = async() => {
-                const userData = await getUser(params.login)
-                dispatch({type: 'GET_USER', payload: userData,})
+                // old way with action:
+                // const userData = await getUser(params.login)
+                // dispatch({type: 'GET_USER', payload: userData,})
 
-                const userRepoData = await getUserRepos(params.login)
-                dispatch({type: 'GET_USERS_REPOS', payload: userRepoData,})
+                // const userRepoData = await getUserRepos(params.login)
+                // dispatch({type: 'GET_USERS_REPOS', payload: userRepoData,})
+
+                // New way:
+             const userData = await getUserAndRepos(params.login)
+                dispatch({type: 'GET_USERS_And_REPOS', payload: userData})
+
+
+
           }
           getUserData()
         }, [dispatch, params.login])

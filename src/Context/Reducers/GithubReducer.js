@@ -7,19 +7,28 @@ const GithubReducers = (state, action)=>{
                 users: action.payload,
                 loading: false,
             }
-        case 'GET_USER':
+        // case 'GET_USER':
+        //     return {
+        //         ...state,
+        //         user: action.payload,
+        //         loading: false,
+        //     }
+
+        // case 'GET_USERS_REPOS':
+        //     return {
+        //         ...state,
+        //         repos: action.payload,
+        //         loading: false,
+
+        //     }
+
+         case 'GET_USERS_And_REPOS':
             return {
                 ...state,
-                user: action.payload,
+                // we are changing state with multiple API here. 
+                user: action.payload.user,
+                repos: action.payload.repos,
                 loading: false,
-            }
-
-        case 'GET_USERS_REPOS':
-            return {
-                ...state,
-                repos: action.payload,
-                loading: false,
-
             }
 
             // We make a case just for lodaing so we can change the loading state of our APP

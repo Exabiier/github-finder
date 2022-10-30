@@ -10,9 +10,14 @@ function HomePage(props) {
     <>
       <Navbar />
       <main className="container mx-auto px-3 pb-12">
+        <div className="mb-1">
+        {/* <h1 className="text-6xl inline">Welcome</h1> */}
+        <h2 className='text-4xl inline'>Enter Github User:</h2>
+        </div>
+        
         <Alert />
         <UserSearch />
-        <h1 className="text-6xl">Welcome</h1>
+        
         {/* <div>{props.pagedata.title}</div> */}
         <UserResults />
       </main>
